@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Models\category;
 
 /*
@@ -47,4 +48,14 @@ Route::controller(CategoryController::class)->group(function () {
     Route::get('delete_category/{id}', 'delete');
     Route::get('edit_category/{id}', 'edit');
     Route::post('edit_category/update_category', 'update');
+});
+
+Route::controller(ProductController::class)->group(function () {
+
+    // Route::view('product', 'admin/layout/product/product');
+    Route::post('add_product', 'add_product');
+    Route::get('product', 'index');
+    // Route::get('delete_category/{id}', 'delete');
+    // Route::get('edit_category/{id}', 'edit');
+    // Route::post('edit_category/update_category', 'update');
 });
