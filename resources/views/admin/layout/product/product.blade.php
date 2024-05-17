@@ -10,8 +10,14 @@
 				<!-- Row -->
 				<div class="row">
 					<div class="col-xl-12">
+                       
+					
+						
 						<div class="filter cm-content-box box-primary">
 							<div class="content-title SlideToolHeader">
+								<div class="cpa">
+									<i class="fa-solid fa-file-lines me-1"></i>Product List
+								</div>
                                 @if ($errors->any())
                                 <div id='error-message' class="alert alert-danger col-md-6">
                                     <ul>
@@ -22,7 +28,7 @@
                                 </div>
                             @endif
                             
-
+        
                                 <script>
                                     // Function to remove success message after 2 seconds
                                     setTimeout(function() {
@@ -38,65 +44,17 @@
                                         }
                                     }, 3000);// Remove after 2 seconds (2000 milliseconds)
                                 </script>
-                            	<div class="cpa">
-									<i class="fa-category fa-solid fa-filter me-2"></i>Add Product
-								</div>
-                               
 								<div class="tools">
-									<a href="javascript:void(0);" class="expand handle"><i
-											class="fal fa-angle-down"></i></a>
-								</div>
-                                @if (session('success'))
-                                <div id='success-message' class="alert alert-success col-md-6">
-                                    {{ session('success') }}
-                                </div>
-                                @endif
-							</div>
-							<div class="cm-content-body form excerpt">
-                                <div class="card-body">
-                                    <form enctype="multipart/form-data" id="form" action="add_product" method="POST">
-                                        @csrf
-                                      <div class="row gx-2">
-                                        <div class="col-12 mb-3"><label class="form-label" for="product-name">Product name:</label><input class="form-control" name="product_name" type="text"></div>
-                                        {{-- category with select tag --}}
-                                       <!-- your_view.blade.php -->
-
-                                        <div class="col-12 mb-3">
-                                            <label class="form-label" for="manufacturar-name">Category:</label>
-                                            <select class="form-control" name="c_id">
-                                                <option value="">Select Category</option>
-                                                @foreach($data as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <div class="col-12 mb-3"><label class="form-label" for="manufacturar-name">Description:</label><input class="form-control" id="description" name='description' type="text"></div>
-                                        <div class="col-12 mb-3"><label class="form-label" for="identification-no">Color:</label><input class="form-control" id="color" name='color' type="text"></div>
-                                        <div class="col-12 mb-3"><label class="form-label" for="product-summary">Size: </label><input class="form-control" id="size" name='size' type="text"></div>
-                                        <div class="col-12 mb-3"><label class="form-label" for="product-image">Product Image:</label><input class="form-control" name='product_image' id="product-image" type="file"></div>
-                                        <div class="col-12 mb-3"><label class="form-label" for="product-price">Price:</label><input class="form-control" id="price" name='price' type="text"></div>
-                                        <div class="col-12 mb-3"><label class="form-label" for="product-price">Quantity:</label><input class="form-control" id="quantity" name='qty' type="text"></div>
-                                        <div class="col-12 mb-3"><label class="form-label" for="product-price">Sell Price:</label><input class="form-control" id="sell-price" name='sell_price' type="text"></div>
-                                        <div class="col-12 mb-3"><button class="btn btn-danger light mt-1" type="submit">Add Product</button></div>
-                                        
-                                      
-                                     
+                                    @if (session('success'))
+                                    <div id='success-message' class="alert alert-success col-md-6">
+                                        {{ session('success') }}
                                     </div>
-                                    </form>
-                                </div>
-                               
-							</div>
-						</div>
-						
-						<div class="filter cm-content-box box-primary">
-							<div class="content-title SlideToolHeader">
-								<div class="cpa">
-									<i class="fa-solid fa-file-lines me-1"></i>Product List
-								</div>
-								<div class="tools">
-									<a href="javascript:void(0);" class="expand handle"><i
-											class="fal fa-angle-down"></i></a>
+                                    @endif
+                                    {{-- add product button here --}}
+                                    <a href="add_product" class="btn btn-primary">Add Product</a>
+
+									{{-- <a href="javascript:void(0);" class="expand handle"><i
+											class="fal fa-angle-down"></i></a> --}}
 								</div>
 							</div>
 							<div class="cm-content-body form excerpt">
@@ -141,11 +99,11 @@
                                                     <td>{{$item['sell_price']}}</td>
 													{{-- <td>{{$item['updated_at']}}</td> --}}
 													<td class="text-nowrap">
-														<a href="edit_category/{{ $item['id'] }}"
+														<a href="edit_product/{{ $item['id'] }}"
 															class="btn btn-warning btn-sm content-icon">
 															<i class="fa-solid fa-pen-to-square"></i>
 														</a>
-														<a href="delete_category/{{ $item['id'] }}"
+														<a href="delete_product/{{ $item['id'] }}"
 															class="btn btn-danger btn-sm content-icon">
 															<i class="fa-solid fa-trash"></i>
 														</a>

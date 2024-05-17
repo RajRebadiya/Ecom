@@ -62,8 +62,8 @@
                 <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="home">Home</a></li>
-                        <li><a href="#">Women’s</a></li>
-                        <li><a href="#">Men’s</a></li>
+                        {{-- <li><a href="#">Women’s</a></li>
+                        <li><a href="#">Men’s</a></li> --}}
                         <li><a href="shop">Shop</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="dropdown">
@@ -71,6 +71,14 @@
                                 <li><a href="shop-cart.html">Shop Cart</a></li>
                                 <li><a href="checkout.html">Checkout</a></li>
                                 <li><a href="blog-details.html">Blog Details</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Category</a>
+                            <ul class="dropdown">
+                                <li><a href="{{url('all_product/men')}}">Men</a></li>
+                                <li><a href="{{url('all_product/women')}}">Women</a></li>
+                                <li><a href="{{url('all_product/kids')}}">Kids</a></li>
+                                <li><a href="{{url('all_product/grocery')}}">Grocery</a></li>
                             </ul>
                         </li>
                         <li><a href="blog">Blog</a></li>

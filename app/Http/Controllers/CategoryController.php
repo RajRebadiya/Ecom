@@ -77,4 +77,6 @@ class CategoryController extends Controller
         $category->save();
         return redirect('category')->with('success', 'Category updated successfully.');
     }
+
+    
 }
