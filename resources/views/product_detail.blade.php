@@ -5,6 +5,22 @@
  <!-- Product Details Section Begin -->
  <section class="product-details spad">
     <div class="container">
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+        @endif
+        @if (session('success'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ session('success') }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="row">
             
            
@@ -48,19 +64,27 @@
                     <div class="product__details__price">$ {{$datas->sell_price}} <span>$ {{$datas->price}}</span></div>
                     <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur
                     magni lores eos qui ratione voluptatem sequi nesciunt.</p>
-                    <div class="product__details__button">
-                        <div class="quantity">
-                            <span>Quantity:</span>
-                            <div class="pro-qty">
-                                <input type="text" value="1">
+                   
+                        <div class="product__details__button">
+                            <div class="quantity">
+                                <span>Quantity:</span>
+                                <div class="pro-qty">
+                                    <input type="text" value="1">
+                                </div>
                             </div>
+                            <form action="{{ url('add-to-cart') }}" method="post">
+                                @csrf
+                                <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</button>
+                                <input type="hidden" name="product_id" value="{{ $datas->id }}">
+                            </form>
+                            
+                            <ul>
+                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+                            </ul>
                         </div>
-                        <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
-                        <ul>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-                        </ul>
-                    </div>
+                       
+                            
                     <div class="product__details__widget">
                         <ul>
                             <li>

@@ -61,11 +61,11 @@
             <div class="col-xl-6 col-lg-7">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="home">Home</a></li>
+                        <li class="{{ Request::is('home') ? 'active' : '' }}"><a href="{{url('home')}}">Home</a></li>
                         {{-- <li><a href="#">Women’s</a></li>
                         <li><a href="#">Men’s</a></li> --}}
-                        <li><a href="shop">Shop</a></li>
-                        <li><a href="#">Pages</a>
+                        <li class="{{ Request::is('shop') ? 'active' : '' }}"><a href="shop">Shop</a></li>
+                        <li class="{{ Request::is('pages') ? 'active' : '' }}"><a href="#">Pages</a>
                             <ul class="dropdown">
                                 <li><a href="product-details.html">Product Details</a></li>
                                 <li><a href="shop-cart.html">Shop Cart</a></li>
@@ -73,7 +73,7 @@
                                 <li><a href="blog-details.html">Blog Details</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Category</a>
+                        <li class="{{ Request::is('all_product') ? 'active' : '' }}"><a href="{{url('all_product')}}">Category</a>
                             <ul class="dropdown">
                                 <li><a href="{{url('all_product/men')}}">Men</a></li>
                                 <li><a href="{{url('all_product/women')}}">Women</a></li>
@@ -81,24 +81,49 @@
                                 <li><a href="{{url('all_product/grocery')}}">Grocery</a></li>
                             </ul>
                         </li>
-                        <li><a href="blog">Blog</a></li>
-                        <li><a href="contact">Contact</a></li>
+                        
+                        <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="{{url('contact')}}">Contact</a></li>
+                       
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3">
                 <div class="header__right">
                     <div class="header__right__auth">
+                        @if (session('email'))
+                            {{-- <p>Welcome {{session('email')}}</p> --}}
+                        @else
                         <a href="login">Login</a>
                         <a href="register">Register</a>
+
+                        @endif
                     </div>
                     <ul class="header__right__widget">
                         <li><span class="icon_search search-switch"></span></li>
-                        <li><a href="#"><span class="icon_heart_alt"></span>
-                            <div class="tip">2</div>
+                        <li><a href="{{url('wishlist')}}"><span class="icon_heart_alt"></span>
+                            @php
+                            $user_data = DB::table('users')->where('email',session('email'))->first();
+                            $user_id = $user_data->id;
+                            $wishlist_data = DB::table('wishlist')->where('user_id',$user_id)->count();
+                            @endphp
+                            <div class="tip">{{$wishlist_data}}</div>
                         </a></li>
-                        <li><a href="#"><span class="icon_bag_alt"></span>
-                            <div class="tip">2</div>
+                        <li><a href="{{url('cart')}}"><span class="icon_bag_alt"></span>
+                            @php
+                            $user_data = DB::table('users')->where('email',session('email'))->first();
+                            $user_id = $user_data->id;
+                            $cart_data = DB::table('addtocart')->where('user_id',$user_id)->count();
+                            @endphp
+                            
+                            <div class="tip">{{$cart_data}}</div>
+                        </a></li>
+                        @if (session('email'))
+                            
+                        <li><a href="{{url('logout')}}"><span class="fa fa-sign-out" style="font-size:20px" ></span>
+                        @else
+                           {{-- <li> <h3>Welcome {{session('email')}}</h3></li> --}}
+                        @endif
+                            {{-- <div class="tip">2</div> --}}
                         </a></li>
                     </ul>
                 </div>

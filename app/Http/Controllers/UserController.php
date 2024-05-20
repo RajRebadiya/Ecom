@@ -52,9 +52,23 @@ class UserController extends Controller
         // Check if the user exists and if the password is correct
         if ($user && Hash::check($password, $user->password)) {
             session(['email' => $user->email]); // Storing email in session
+
+            // Check if there's an intended URL in the session
+            if (session()->has('intended_url')) {
+                $intendedUrl = session('intended_url');
+                session()->forget('intended_url'); // Remove intended URL from session
+                return redirect($intendedUrl)->with(['success' => 'Login successful.', 'data' => $user]);
+            }
+
             return redirect('home')->with(['success' => 'Login successful.', 'data' => $user]);
         } else {
             return redirect('login')->with(['errors' => 'Invalid email or password.']);
         }
+    }
+
+    public function logout()
+    {
+        session()->forget('email'); // Remove email from session
+        return redirect('login')->with(['success' => 'Logout successful.']);
     }
 }

@@ -39,7 +39,7 @@ class ProductController extends Controller
             'description' => 'required|string',
             'color' => 'required|string',
             'size' => 'required|string',
-            'product_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'product_image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'price' => 'required|numeric',
             'qty' => 'required|integer',
             'sell_price' => 'required|numeric',
@@ -101,7 +101,7 @@ class ProductController extends Controller
         // Handle product image upload
         if ($req->hasFile('product_image')) {
             $req->validate([
-                'product_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+                'product_image' => 'required|image|mimes:jpeg,png,jpg,gif'
             ]);
             $image = $req->file('product_image');
             $imageName =  $image->getClientOriginalName();
@@ -146,6 +146,8 @@ class ProductController extends Controller
         // dd($category);
         $category_id = $category->id;
         $data = product::where('c_id', $category_id)->get();
+
+
         // dd($data);
         return view('Category.all_product', compact('data'));
     }

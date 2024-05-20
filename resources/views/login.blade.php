@@ -18,6 +18,11 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if (session('error'))
+            <div id="successAlert"  class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
            
 
        
