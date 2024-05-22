@@ -119,11 +119,37 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="discount__content">
-                    <h6>Discount codes</h6>
-                    <form action="#">
-                        <input type="text" placeholder="Enter your coupon code">
-                        <button type="submit" class="site-btn">Apply</button>
-                    </form>
+                    <h6 style='margin-left: 12px'>Discount codes</h6>
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show col-md-6" role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                    @endif
+                    @if (session('coupon_code'))
+                    <div class="alert alert-success alert-dismissible fade show col-md-6" role="alert">
+                        {{ session('coupon_code') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                @endif
+
+                <div id="mess_coup_div" style="font-weight:700;color:green"></div>
+                <div id="mess_coup_error" style="font-weight:700;color:red"></div>
+                    {{-- <form action="{{url('add-coupon')}}" method="get">
+                        @csrf --}}
+                        <input type="text" id='coupon-form' style="
+                        padding: 7px;
+                        border-radius: 22px;
+                        border: 2px solid black;
+                        background: #f5f5f5;
+                        color: rgb(0, 0, 0);
+                    " placeholder="Enter your coupon code" name="coupon">
+                        <button type="button" class="site-btn" onclick="check_coupon()">Apply</button>
+                    {{-- </form> --}}
                 </div>
             </div>
             <div class="col-lg-4 offset-lg-2">
@@ -144,18 +170,78 @@
    
     
 <!-- Shop Cart Section End -->
+<!-- Assuming the discount is stored in the session as 'coupon_discount' -->
+<!-- Make sure jQuery library is included -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    function check_coupon() {
+        var cname = $('#coupon-form').val();
+        $.ajax({
+            url: "{{ url('add-coupon') }}",
+            type: "GET",
+            data: {
+                cname: cname
+            },
+            success: function(response) {
+                console.log('Response:', response);
+                if (response.success) {
+                    // Display success message
+                    $("#mess_coup_div").text(response.success).css('color', 'green');
+                    
+                    // Store coupon data in session-like variable
+                    window.coupon = {
+                        type: response.type, // Assuming response contains type of coupon
+                        amount: response.amount // Assuming response contains amount of discount
+                    };
+
+                    const updateMainTotal = () => {
+        let mainTotal = 0;
+        document.querySelectorAll('.item-total').forEach(itemTotalElement => {
+            const itemTotal = parseFloat(itemTotalElement.textContent.replace('$', ''));
+            mainTotal += itemTotal;
+        });
+
+        let finalTotal = mainTotal;
+
+        if (window.coupon) {
+            if (window.coupon.type === 'flat') {
+                finalTotal -= window.coupon.amount;
+            } else if (window.coupon.type === 'discount') {
+                finalTotal -= (mainTotal * (window.coupon.amount / 100));
+            }
+        }
+
+        document.querySelector('.main-total').textContent = `$${mainTotal.toFixed(2)}`;
+        document.querySelector('.final-total').textContent = `$${finalTotal.toFixed(2)}`;
+    };
+
+                    // Update total price
+                    updateMainTotal();
+                } else {
+                    // Display error message if no success
+                    $("#mess_coup_error").text(response.error).css('color', 'red');
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                $("#mess_coup_div").text("Failed to apply coupon. Please try again.").css('color', 'red');
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        // Function to handle form submission via AJAX
+        
         const updateTotalPrice = (input) => {
             const quantity = parseInt(input.value);
             const cartRow = input.closest('tr');
             const priceElement = cartRow.querySelector('.item-price');
             const totalElement = cartRow.querySelector('.item-total');
-            const price = parseFloat(priceElement.textContent);
+            const price = parseFloat(priceElement.textContent.replace('$', ''));
 
             if (quantity > 0) {
                 const total = (price * quantity).toFixed(2);
-                totalElement.textContent = `${total}`; // Adding dollar sign for clarity
+                totalElement.textContent = `$${total}`; // Adding dollar sign for clarity
                 updateMainTotal(); // Update the main total whenever an item total is updated
             }
         };
@@ -166,8 +252,19 @@
                 const itemTotal = parseFloat(itemTotalElement.textContent.replace('$', ''));
                 mainTotal += itemTotal;
             });
+
+            let finalTotal = mainTotal;
+
+            if (window.coupon) {
+                if (window.coupon.type === 'flat') {
+                    finalTotal -= window.coupon.amount;
+                } else if (window.coupon.type === 'discount') {
+                    finalTotal -= (mainTotal * (window.coupon.amount / 100));
+                }
+            }
+
             document.querySelector('.main-total').textContent = `$${mainTotal.toFixed(2)}`;
-            document.querySelector('.final-total').textContent = `$${mainTotal.toFixed(2)}`;
+            document.querySelector('.final-total').textContent = `$${finalTotal.toFixed(2)}`;
         };
 
         document.querySelectorAll('.quantity-input').forEach(input => {
@@ -200,6 +297,8 @@
     });
 </script>
 
+    
+ 
     
     
     

@@ -101,18 +101,29 @@
                     <ul class="header__right__widget">
                         <li><span class="icon_search search-switch"></span></li>
                         <li><a href="{{url('wishlist')}}"><span class="icon_heart_alt"></span>
-                            @php
+                            <?php
                             $user_data = DB::table('users')->where('email',session('email'))->first();
-                            $user_id = $user_data->id;
-                            $wishlist_data = DB::table('wishlist')->where('user_id',$user_id)->count();
-                            @endphp
+                            if($user_data == true){
+                                $user_id = $user_data->id;
+                                $wishlist_data = DB::table('wishlist')->where('user_id',$user_id)->count();
+                                
+                            }else{
+                                // redirect me to login page
+                                $wishlist_data = 0;
+                            }
+                            ?>
                             <div class="tip">{{$wishlist_data}}</div>
                         </a></li>
                         <li><a href="{{url('cart')}}"><span class="icon_bag_alt"></span>
                             @php
                             $user_data = DB::table('users')->where('email',session('email'))->first();
-                            $user_id = $user_data->id;
-                            $cart_data = DB::table('addtocart')->where('user_id',$user_id)->count();
+                            if($user_data == true){
+                                $user_id = $user_data->id;
+                                $cart_data = DB::table('addtocart')->where('user_id',$user_id)->count();
+                                
+                            }else{
+                                $cart_data = 0;
+                            }
                             @endphp
                             
                             <div class="tip">{{$cart_data}}</div>

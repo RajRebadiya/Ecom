@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CouponController;
 use App\Models\category;
 
 /*
@@ -82,4 +83,9 @@ Route::controller(AddtocartController::class)->group(function () {
     Route::post('remove-all-cart', 'remove_all_cart');
 });
 
+
+Route::controller(CouponController::class)->group(function () {
+    Route::get('add-coupon', 'add_coupon');
+});
 // Route::view('add-to-cart', 'add_to_cart');
+// Route::view('cal', 'cal');
