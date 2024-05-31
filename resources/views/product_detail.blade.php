@@ -66,13 +66,16 @@
                     magni lores eos qui ratione voluptatem sequi nesciunt.</p>
                    
                         <div class="product__details__button">
+                            <form action="{{ url('add-to-cart') }}" method="post">
+
                             <div class="quantity">
-                                <span>Quantity:</span>
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
+                                <label>Quantity:</label>
+                                <div class="pro">
+                                    <span class="dec qtybtn" style='cursor: pointer;'>-</span>
+                                    <input style="width: 102px;border: none;text-align: center;" name='p_qty' class="quantity-input" value='1' min="1">
+                                    <span class="inc qtybtn" style='cursor: pointer;'>+</span>
                                 </div>
                             </div>
-                            <form action="{{ url('add-to-cart') }}" method="post">
                                 @csrf
                                 <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</button>
                                 <input type="hidden" name="product_id" value="{{ $datas->id }}">
@@ -198,6 +201,25 @@
       
     </div>
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const decrementBtn = document.querySelector('.dec');
+        const incrementBtn = document.querySelector('.inc');
+        const quantityInput = document.querySelector('.quantity-input');
+
+        decrementBtn.addEventListener('click', function() {
+            // Ensure value doesn't go below 1
+            if (quantityInput.value > 1) {
+                quantityInput.value = parseInt(quantityInput.value) - 1;
+            }
+        });
+
+        incrementBtn.addEventListener('click', function() {
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+        });
+    });
+</script>
 <!-- Product Details Section End -->
 
     

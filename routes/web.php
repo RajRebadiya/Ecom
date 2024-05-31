@@ -8,6 +8,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CheckoutController;
 use App\Models\category;
 
 /*
@@ -81,11 +83,21 @@ Route::controller(AddtocartController::class)->group(function () {
     Route::get('cart', 'cart');
     Route::post('delete-cart/{id}', 'delete');
     Route::post('remove-all-cart', 'remove_all_cart');
+    Route::post('update-quantity/{id}', 'updateCart');
 });
 
-
 Route::controller(CouponController::class)->group(function () {
-    Route::get('add-coupon', 'add_coupon');
+    Route::post('apply-coupon', 'applyCoupon');
 });
 // Route::view('add-to-cart', 'add_to_cart');
 // Route::view('cal', 'cal');
+
+Route::controller(OrderController::class)->group(function () {
+
+    Route::post('checkout', 'placeOrder')->name('checkout');
+    Route::get('checkout', 'checkout')->name('checkout');
+    Route::post('/delete-temporary-order', [OrderController::class, 'deleteTemporaryOrder'])->name('deleteTemporaryOrder');
+});
+
+Route::controller(CheckoutController::class)->group(function () {
+});
