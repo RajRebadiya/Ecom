@@ -10,6 +10,8 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderDetailController;
+use App\Http\Controllers\RazorpayPaymentController;
 use App\Models\category;
 
 /*
@@ -99,5 +101,10 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('/delete-temporary-order', [OrderController::class, 'deleteTemporaryOrder'])->name('deleteTemporaryOrder');
 });
 
-Route::controller(CheckoutController::class)->group(function () {
+Route::controller(OrderDetailController::class)->group(function () {
+    Route::post('payment', 'payment');
 });
+
+
+Route::get('razorpay-payment', [RazorpayPaymentController::class, 'index']);
+Route::post('razorpay-payment', [RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');

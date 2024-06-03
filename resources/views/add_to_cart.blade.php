@@ -173,6 +173,7 @@
                         @csrf
                         <input type="hidden" name="final_total" class='final-total' value="">
                         <input type="hidden" name="main_total" class='main-total' value="">
+                        <input type="hidden" name="discount" value="">
                         <input type="hidden" name="user_id" value="{{$user_id}}">
                         {{-- <input type="hidden" name="product_id" value="{{$product_id}}"> --}}
 
@@ -263,6 +264,7 @@
         $('.final-total').text('₹' + finalTotal.toFixed(2));
         $('input[name="final_total"]').val(finalTotal.toFixed(2));
         $('input[name="main_total"]').val(subtotal.toFixed(2));
+        $('input[name="discount"]').val(discount.toFixed(2));
     }
 
 

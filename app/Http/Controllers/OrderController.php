@@ -12,6 +12,7 @@ class OrderController extends Controller
     //
     public function placeOrder(Request $request)
     {
+        // dd($request->all());
         $user = user_data::where('email', session('email'))->first();
         if (!$user) {
             return redirect('login')->with('error', 'Please login first');
@@ -28,6 +29,7 @@ class OrderController extends Controller
         $order->user_id = $user->id;
         $order->final_total = $request->input('final_total');
         $order->main_total = $request->input('main_total');
+        $order->discount = $request->input('discount');
         // Mark the order as temporary
         $order->status = 'temporary'; // Add this line
         $order->save();
