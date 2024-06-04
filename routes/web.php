@@ -103,8 +103,9 @@ Route::controller(OrderController::class)->group(function () {
 
 Route::controller(OrderDetailController::class)->group(function () {
     Route::post('payment', 'payment');
+    Route::post('payment-success', 'paymentSuccess');
 });
 
 
-Route::get('razorpay-payment', [RazorpayPaymentController::class, 'index']);
-Route::post('razorpay-payment', [RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');
+// Route::get('razorpay-payment', [RazorpayPaymentController::class, 'index']);
+// Route::post('razorpay-payment', [RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');

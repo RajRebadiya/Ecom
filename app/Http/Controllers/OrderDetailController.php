@@ -79,6 +79,7 @@ class OrderDetailController extends Controller
             $orderData = [
                 'amount' => $request->input('total_amount') * 100, // Amount in paisa
                 'currency' => 'INR',
+                // 'id' => $request->input('order_id'),
 
                 // Add other order details as needed
             ];
@@ -90,9 +91,41 @@ class OrderDetailController extends Controller
             // dd($order);
 
             // Redirect user to Razorpay payment page
-            return view('razorpay_payment', ['order' => $order]);
+            return view('razorpay_payment', ['order' => $order, 'order_id' => $order_detail->order_id, 'user_id' => $request->user_id]);
         } else {
             return redirect('home')->with('error', 'Payment failed.');
         }
+    }
+
+    public function paymentSuccess(Request $request)
+    {
+        // dd($request->all());
+        // Validate the request
+        $request->validate([
+            'payment_id' => 'required|string',
+            'order_id' => 'required|integer',
+            'user_id' => 'required|integer',
+        ]);
+
+        // Find the order by ID
+        $order = orderdetail::where('order_id', $request->order_id)->first();
+
+        // dd($order);
+
+        if (!$order) {
+            return response()->json(['success' => false, 'message' => 'Order not found'], 404);
+        }
+
+        // Save the payment ID to the order
+        $order->payment_id = $request->payment_id;
+        $order->p_status = 'success'; // Or any other status you use
+
+
+        $order->save();
+
+        $lata = addtocart::where('user_id', $order->user_id)->delete();
+
+
+        return response()->json(['success' => true]);
     }
 }
