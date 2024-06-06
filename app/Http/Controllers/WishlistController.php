@@ -74,4 +74,20 @@ class WishlistController extends Controller
         $remove_all = wishlist::where('user_id', $user_id)->delete();
         return redirect()->back()->with(['success' => 'All products removed from wishlist.']);
     }
+
+    // WishlistController.php
+    public function removeItem(Request $request, $id)
+    {
+        // dd($id);
+        $user_id = DB::table('users')->where('email', session('email'))->first()->id;
+        $wishlistItem = DB::table('wishlist')->where('product_id', $id)->where('user_id', $user_id);
+        // dd($wishlistItem);
+
+        if ($wishlistItem->exists()) {
+            $wishlistItem->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
 }

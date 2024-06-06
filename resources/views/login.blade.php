@@ -2,54 +2,54 @@
 
 @section('title', 'Login')
 @section('content')
-   <!-- Sing in  Form -->
-   <section class="sign-in" style="margin-top: 20px;">
+<!-- Sing in  Form -->
+<section class="sign-in" style="margin-top: 20px;">
     <div class="container">
         <div class="signin-content">
             <div class="signin-image">
                 <figure><img src="{{asset('assets/login_register/images/signin-image.jpg')}}" alt="sing up image"></figure>
-                <a href="#" class="signup-image-link">Create an account</a>
+                <a href="{{url('register')}}" class="signup-image-link">Create an account</a>
             </div>
 
             <div class="signin-form">
                 <h2 class="form-title">Sign In</h2>
                 @if (session('success'))
-                <div id="successAlert"  class="alert alert-success">
+                <div id="successAlert" class="alert alert-success">
                     {{ session('success') }}
                 </div>
-            @endif
-            @if (session('error'))
-            <div id="successAlert"  class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-           
+                @endif
+                @if (session('error'))
+                <div id="successAlert" class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
 
-       
-          
+
+
+
 
                 <form method="POST" action='login' class="register-form" id="login-form">
                     @csrf
                     <div class="form-group">
                         <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                        <input type="text" name="email" id="your_name" placeholder="Your Email"/>
+                        <input type="text" name="email" id="your_name" placeholder="Your Email" />
                     </div>
                     @error('email')
-                    <span  style='color: red;' >{{ $message }}</span>
-                @enderror
+                    <span style='color: red;'>{{ $message }}</span>
+                    @enderror
                     <div class="form-group">
                         <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                        <input type="password" name="password" id="your_pass" placeholder="Password"/>
+                        <input type="password" name="password" id="your_pass" placeholder="Password" />
                     </div>
                     @error('password')
-                    <span  style='color: red;' >{{ $message }}</span>
-                @enderror
-                    <div class="form-group">
+                    <span style='color: red;'>{{ $message }}</span>
+                    @enderror
+                    {{-- <div class="form-group">
                         <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
                         <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                    </div>
+                    </div> --}}
                     <div class="form-group form-button">
-                        <input type="submit" name="signin" id="signin" class="form-submit btn-md "  value="Log in"/>
+                        <input type="submit" name="signin" id="signin" class="form-submit btn-md " value="Log in" />
                     </div>
                 </form>
                 <div class="social-login">
@@ -73,6 +73,7 @@
             successAlert.remove();
         }
     }, 2000); // 2000 milliseconds = 2 seconds
+
 </script>
-    
+
 @endsection

@@ -15,7 +15,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12" style='margin-bottom: 20px'>
                             <div class="checkout__form__input">
                                 <p>Full Name <span>*</span></p>
-                                <input type="text" name="fullname" id="fullname">
+                                <input type="text" name="fullname" id="fullname" value="{{ old('fullname') }}">
                                 @error('fullname')
                                 <span class="error-message" style='color: red;  '>{{ $message }}</span>
                                 @enderror
@@ -25,12 +25,15 @@
                         <div class="col-lg-12">
                             <div class="checkout__form__input" style='margin-bottom: 20px'>
                                 <p>Country <span>*</span></p>
-                                <input type="text" name="country" id="country">
+                                <input type="text" name="country" id="country" value="{{ old('country') }}">
+                                @error('country')
+                                <span class="error-message" style='color: red;  '>{{ $message }}</span>
+                                @enderror
                                 <span class="error-message" id="country-error"></span>
                             </div>
                             <div class="checkout__form__input" style='margin-bottom: 20px'>
                                 <p>Address <span>*</span></p>
-                                <input type="text" name='address' id="address" placeholder="Street Address">
+                                <input type="text" name='address' id="address" value="{{ old('address') }}" placeholder="Street Address">
                                 @error('address')
                                 <span class="error-message" style='color: red;  '>{{ $message }}</span>
                                 @enderror
@@ -39,17 +42,23 @@
                             </div>
                             <div class="checkout__form__input" style='margin-bottom: 20px'>
                                 <p>Town/City <span>*</span></p>
-                                <input type="text" name="city" id="city">
+                                <input type="text" name="city" id="city" value="{{ old('city') }}">
+                                @error('city')
+                                <span class="error-message" style='color: red;  '>{{ $message }}</span>
+                                @enderror
                                 <span class="error-message" id="city-error"></span>
                             </div>
                             <div class="checkout__form__input" style='margin-bottom: 20px'>
                                 <p>Country/State <span>*</span></p>
-                                <input type="text" name="state" id="state">
+                                <input type="text" name="state" id="state" value="{{ old('state') }}">
+                                @error('state')
+                                <span class="error-message" style='color: red;  '>{{ $message }}</span>
+                                @enderror
                                 <span class="error-message" id="state-error"></span>
                             </div>
                             <div class="checkout__form__input" style='margin-bottom: 20px'>
                                 <p>Postcode/Zip <span>*</span></p>
-                                <input type="text" name='pincode' id="pincode">
+                                <input type="text" name='pincode' id="pincode" value="{{ old('pincode') }}">
                                 @error('pincode')
                                 <span class="error-message" style='color: red;  '>{{ $message }}</span>
                                 @enderror
@@ -58,19 +67,14 @@
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="checkout__form__input" style='margin-bottom: 20px'>
                                 <p>Phone <span>*</span></p>
-                                <input type="text" name='mobile' id="mobile">
+                                <input type="text" name='mobile' id="mobile" value="{{ old('mobile') }}">
                                 @error('mobile')
                                 <span class="error-message" style='color: red;  '>{{ $message }}</span>
                                 @enderror
                                 <span class="error-message" id="mobile-error"></span>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="checkout__form__input" style='margin-bottom: 20px'>
-                                <p>Email <span>*</span></p>
-                                <input type="text" name="email" id="email">
-                            </div>
-                        </div>
+
 
                     </div>
                 </div>

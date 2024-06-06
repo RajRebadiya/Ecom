@@ -34,10 +34,20 @@
             </div>
             <div class="col-lg-6 float-right ">
 
+
+                <?php
+                //if my cart is empty then remove all buttone will be disabled
+                $remove_all = DB::table('addtocart')->where('user_id', $user_id = DB::table('users')->where('email', session('email'))->first()->id)->count();
+                if($remove_all != 0){
+                    ?>
                 <form action="{{url('remove-all-cart')}}" method="post">
                     @csrf
-                    <button class="view__all float-right btn btn-danger light mt-1 ">Remove All</button>
+                    <button style="display: block" class="view__all float-right btn btn-danger light mt-1 ">Remove All</button>
                 </form>
+                <?php
+                }
+                ?>
+
 
             </div>
         </div>
@@ -137,10 +147,12 @@
                     <div id="mess_coup_error" style="font-weight:700;color:red"></div>
                     <input type="text" id='coupon-form' style="
                         padding: 7px;
-                        border-radius: 22px;
-                        border: 2px solid black;
+                        /* border-radius: 22px; */
+                        /* border: 2px solid black; */
                         background: #f5f5f5;
-                        color: rgb(0, 0, 0);
+                        border: none;
+                        color: rgb(170 22 22);
+                        font-weight: 500;
                     " placeholder="Enter your coupon code" name="coupon">
                     <button type="button" class="site-btn" onclick="check_coupon()">Apply</button>
                 </div>

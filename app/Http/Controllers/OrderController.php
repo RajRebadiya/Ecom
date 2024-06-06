@@ -14,13 +14,15 @@ class OrderController extends Controller
     {
         // dd($request->all());
         $user = user_data::where('email', session('email'))->first();
+        // dd($user);
         if (!$user) {
             return redirect('login')->with('error', 'Please login first');
         }
 
         $cart = session()->get('cart', []);
-
+        // dd($cart);
         if (!$cart || empty($cart)) {
+            // dd($cart);
             return redirect()->back()->with('error', 'Your cart is empty.');
         }
 
@@ -31,8 +33,11 @@ class OrderController extends Controller
         $order->main_total = $request->input('main_total');
         $order->discount = $request->input('discount');
         // Mark the order as temporary
-        $order->status = 'temporary'; // Add this line
+        $order->status = 'pending'; // Add this line
         $order->save();
+
+        // dd($order);
+        // dd($cart);
 
         // Create order items
         foreach ($cart as $item) {
@@ -40,7 +45,8 @@ class OrderController extends Controller
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $item->product_id;
             $orderItem->name = $item->name;
-            $orderItem->qty = $item->p_qty;
+            $orderItem->p_qty = $item->p_qty;
+            // $orderItem->p_qty = $item->p_qty;
             $orderItem->price = $item->price;
             $orderItem->total = $item->price * $item->p_qty;
 
@@ -72,7 +78,7 @@ class OrderController extends Controller
         // dd($order);
 
         // Check if the order is temporary
-        if ($order && $order->status === 'temporary') {
+        if ($order && $order->status === 'pending') {
 
             return view('checkout', compact('order'));
         } else {
@@ -104,7 +110,7 @@ class OrderController extends Controller
         if ($orderId) {
             $order = user_order::find($orderId);
 
-            if ($order && $order->status === 'temporary') {
+            if ($order && $order->status === 'pending') {
                 // Delete related order items
                 $orderItems = orderitem::where('order_id', $orderId)->get();
                 foreach ($orderItems as $orderItem) {
