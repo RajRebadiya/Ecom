@@ -11,6 +11,7 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderDetailController;
+use App\Http\Controllers\OrderHistoryController;
 use App\Http\Controllers\RazorpayPaymentController;
 use App\Models\category;
 
@@ -47,6 +48,8 @@ Route::controller(UserController::class)->group(function () {
     Route::post('submit', 'register');
     Route::post('login', 'login');
     Route::get('logout', 'logout');
+    Route::get('user-profile', 'user_profile');
+    Route::post('update-profile', 'update_profile');
     // Route::get('/', 'user_data');
 });
 
@@ -66,6 +69,8 @@ Route::controller(ProductController::class)->group(function () {
     Route::post('add_product', 'add_product');
     Route::get('add_product', 'index_2');
     Route::get('product', 'index');
+    Route::get('home', 'index_3');
+    Route::get('/', 'index_3');
     Route::get('delete_product/{id}', 'delete');
     Route::get('edit_product/{id}', 'edit');
     Route::post('edit_product/update_product', 'update');
@@ -107,6 +112,8 @@ Route::controller(OrderDetailController::class)->group(function () {
     Route::post('payment-success', 'paymentSuccess');
 });
 
+Route::controller(OrderHistoryController::class)->group(function () {
 
-// Route::get('razorpay-payment', [RazorpayPaymentController::class, 'index']);
-// Route::post('razorpay-payment', [RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');
+    Route::get('orders', 'show_order');
+    Route::post('full_order', 'full_order');
+});

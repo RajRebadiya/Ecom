@@ -26,6 +26,28 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="state"><i class="zmdi zmdi-city-alt material-icons-name"></i></label>
+                        <input type="text" name="state" id="state" placeholder="Your state" value="{{ old('state') }}" />
+                        @error('state')
+                        <span style='color: red;'>{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="city"><i class="zmdi zmdi-city material-icons-name"></i></label>
+                        <input type="text" name="city" id="city" placeholder="Your city" value="{{ old('city') }}" />
+                        @error('city')
+                        <span style='color: red;'>{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile"><i class="zmdi zmdi-phone material-icons-name"></i></label>
+                        <input type="number" name="mobile" id="mobile" placeholder="Your mobile" value="{{ old('mobile') }}" />
+                        @error('mobile')
+                        <span style='color: red;'>{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                         <input type="password" name="password" id="pass" placeholder="Password" />
                         @error('password')

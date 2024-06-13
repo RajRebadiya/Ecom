@@ -24,6 +24,14 @@ class ProductController extends Controller
         return view('admin.layout.product.add_product', compact('data'), compact('product'));
     }
 
+    public  function index_3()
+    {
+        $category =  category::all();
+        $product = product::all();
+        // dd($product);
+        return view('index', compact('product'), compact('category'));
+    }
+
 
     // public function show_data()
     // {

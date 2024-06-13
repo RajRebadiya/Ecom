@@ -18,6 +18,9 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
+            'state' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'mobile' => 'required|numeric',
         ]);
 
         // Create a new user instance
@@ -25,10 +28,14 @@ class UserController extends Controller
         $user->name = $req->input('name');
         $user->email = $req->input('email');
         $user->password = Hash::make($req->input('password')); // Hash the password
+        $user->state = $req->input('state');
+        $user->city = $req->input('city');
+        $user->mobile = $req->input('mobile');
         $user->save();
 
         return redirect('login')->with(['success' => 'Regisration successfull.', 'data' => $user]);
     }
+
 
     public function login(Request $req)
     {
@@ -70,5 +77,25 @@ class UserController extends Controller
     {
         session()->forget('email'); // Remove email from session
         return redirect('login')->with(['success' => 'Logout successful.']);
+    }
+
+    public function user_profile()
+    {
+        $user = user_data::where('email', session('email'))->first();
+        // dd($user);
+
+        return view('user_profile', ['user' => $user]);
+    }
+
+    public function update_profile(Request $req)
+    {
+        // dd($req->all());
+        $user = user_data::where('email', session('email'))->first();
+        $user->name = $req->input('name');
+        $user->state = $req->input('state');
+        $user->city = $req->input('city');
+        $user->mobile = $req->input('mobile');
+        $user->save();
+        return redirect('user-profile')->with(['success' => 'Profile updated successfully.']);
     }
 }

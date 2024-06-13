@@ -37,23 +37,7 @@
 <!-- Product Section Begin -->
 <section class="product spad">
     <div class="container">
-        {{-- <div class="row">
-            <div class="col-lg-4 col-md-4">
-                <div class="section-title">
-                    <h4>New product</h4>
-                </div>
-            </div>
-            <div class="col-lg-8 col-md-8">
-                <ul class="filter__controls">
-                    <li class="active" data-filter="*">All</li>
-                    <li data-filter=".women">Women’s</li>
-                    <li data-filter=".men">Men’s</li>
-                    <li data-filter=".kid">Kid’s</li>
-                    <li data-filter=".accessories">Accessories</li>
-                    <li data-filter=".cosmetic">Cosmetics</li>
-                </ul>
-            </div>
-        </div> --}}
+
         @if (session('error'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('error') }}
@@ -95,10 +79,16 @@
                             {{-- <li><form method='post' action='{{url('add-to-wishlist')}}'>@csrf <a href="#"><span type="submit" class="icon_heart_alt"></span></a><input type="hidden" name="product_id" value="{{$category->id}}"></form>
                             </li> --}}
                             @php
+                            if(session()->has('email')){
                             $user = DB::table('users')->where('email',session('email'))->first();
                             $user_id = $user->id;
                             $wish = DB::table('wishlist')->where('user_id',$user_id)->where('product_id',$category->id)->first();
                             $wish_count = DB::table('wishlist')->where('user_id',$user_id)->where('product_id',$category->id)->count();
+
+                            }else{
+
+                            $wish_count = 0;
+                            }
 
 
                             @endphp
