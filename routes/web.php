@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AddtocartController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SendEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
@@ -61,6 +63,7 @@ Route::controller(CategoryController::class)->group(function () {
     Route::get('delete_category/{id}', 'delete');
     Route::get('edit_category/{id}', 'edit');
     Route::post('edit_category/update_category', 'update');
+    Route::get('shop', 'show');
 });
 
 Route::controller(ProductController::class)->group(function () {
@@ -77,13 +80,18 @@ Route::controller(ProductController::class)->group(function () {
     Route::get('all_product', 'show_product');
     Route::get('all_product/{men}', 'show_product_cat');
     Route::get('product-detail/{id}', 'product_detail');
+    Route::get('shop', 'shop_show');
+    Route::post('filter', 'filter');
+    Route::get('reset', 'reset_shop');
+    Route::post('latest-product', 'latest_product');
+    Route::get('all-products', 'getAllProducts');
 });
 
 Route::controller(WishlistController::class)->group(function () {
     Route::get('wishlist', 'wishlist');
     Route::post('add-to-wishlist', 'add_to_wishlist');
     Route::post('remove-all-wishlist', 'remove_all_wishlist');
-    Route::post('/remove-wishlist-item/{id}',  'removeItem')->name('wishlist.removeItem');
+    Route::post('/remove-wishlist-item/{id}', 'removeItem')->name('wishlist.removeItem');
 });
 
 Route::controller(AddtocartController::class)->group(function () {
@@ -117,3 +125,9 @@ Route::controller(OrderHistoryController::class)->group(function () {
     Route::get('orders', 'show_order');
     Route::post('full_order', 'full_order');
 });
+
+Route::controller(ReviewController::class)->group(function () {
+    Route::post('review', 'add_review');
+});
+
+Route::get('send-email', [SendEmailController::class, 'send']);

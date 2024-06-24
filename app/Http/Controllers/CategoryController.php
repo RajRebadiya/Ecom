@@ -78,5 +78,11 @@ class CategoryController extends Controller
         return redirect('category')->with('success', 'Category updated successfully.');
     }
 
+    public function show()
+    {
+        $data = Category::all();
+        return view('shop', compact('data'));
+    }
+
     
 }
