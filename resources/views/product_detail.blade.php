@@ -28,30 +28,40 @@
 
                 <div class="col-lg-6">
                     <div class="product__details__pic">
+                        @php
+                            $images = explode(',', $datas->image);
+                            // print_r($images);
+                        @endphp
                         <div class="product__details__pic__left product__thumb nice-scroll">
                             <a class="pt active" href="#product-1">
-                                <img src="{{ asset('storage/images/product/' . $datas['image']) }}" alt="">
-                            </a>
-                            <a class="pt" href="#product-2">
-                                <img src="{{ asset('storage/images/product/' . $datas['image']) }}" alt="">
+                                <img src="{{ asset('storage/images/product/' . $images[0]) }}" alt="">
                             </a>
                             <a class="pt" href="#product-3">
-                                <img src="{{ asset('storage/images/product/' . $datas['image']) }}" alt="">
+                                <img src="{{ isset($images[1]) ? asset('storage/images/product/' . $images[1]) : asset('storage/images/product/' . end($images)) }}"
+                                    alt="">
                             </a>
-                            <a class="pt" href="#product-4">
-                                <img src="{{ asset('storage/images/product/' . $datas['image']) }}" alt="">
+                            <a class="pt" href="#product-3">
+                                <img src="{{ isset($images[2]) ? asset('storage/images/product/' . $images[2]) : asset('storage/images/product/' . end($images)) }}"
+                                    alt="">
+                            </a>
+                            <a class="pt" href="#product-3">
+                                <img src="{{ isset($images[3]) ? asset('storage/images/product/' . $images[3]) : asset('storage/images/product/' . end($images)) }}"
+                                    alt="">
                             </a>
                         </div>
                         <div class="product__details__slider__content">
                             <div class="product__details__pic__slider owl-carousel">
                                 <img data-hash="product-1" class="product__big__img"
-                                    src="{{ asset('storage/images/product/' . $datas['image']) }}" alt="">
+                                    src="{{ asset('storage/images/product/' . $images[0]) }}" alt="">
                                 <img data-hash="product-2" class="product__big__img"
-                                    src="{{ asset('storage/images/product/' . $datas['image']) }}" alt="">
+                                    src="{{ isset($images[1]) ? asset('storage/images/product/' . $images[1]) : asset('storage/images/product/' . end($images)) }}"
+                                    alt="">
                                 <img data-hash="product-3" class="product__big__img"
-                                    src="{{ asset('storage/images/product/' . $datas['image']) }}" alt="">
+                                    src="{{ isset($images[2]) ? asset('storage/images/product/' . $images[2]) : asset('storage/images/product/' . end($images)) }}"
+                                    alt="">
                                 <img data-hash="product-4" class="product__big__img"
-                                    src="{{ asset('storage/images/product/' . $datas['image']) }}" alt="">
+                                    src="{{ isset($images[3]) ? asset('storage/images/product/' . $images[3]) : asset('storage/images/product/' . end($images)) }}"
+                                    alt="">
                             </div>
                         </div>
                     </div>

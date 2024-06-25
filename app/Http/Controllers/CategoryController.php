@@ -20,8 +20,9 @@ class CategoryController extends Controller
 
         if ($req->hasFile('category_image')) {
             $image = $req->file('category_image');
-            $imageName =  $image->getClientOriginalName();
-            $image->storeAs('public/images/', $imageName); // Save image to storage
+            $imageName = $image->getClientOriginalName();
+            $destinationPath = public_path('storage/images/');
+            $image->move($destinationPath, $imageName);
         } else {
             return redirect('category')->with('error', 'Category image is required.');
         }
@@ -41,9 +42,9 @@ class CategoryController extends Controller
         return redirect('category')->with('success', 'Category added successfully.');
     }
 
-    public  function index()
+    public function index()
     {
-        $data =  Category::all();
+        $data = Category::all();
         return view('admin.layout.category', compact('data'));
     }
 
@@ -68,11 +69,25 @@ class CategoryController extends Controller
         ]);
         $category = Category::find($req->id);
         $category->name = $req->category_name;
+        // if ($req->hasFile('category_image')) {
+        //     $image = $req->file('category_image');
+        //     $imageName = $image->getClientOriginalName();
+        //     // dd($imageName);
+        //     $data = $image->Storage_path('storage/images', $imageName); // Save image to storage
+        //     // dd($data);
+        //     $category->image = $imageName; // Save the filename to the database
+        // }
         if ($req->hasFile('category_image')) {
-            $image = $req->file('category_image');
-            $imageName =  $image->getClientOriginalName();
-            $image->storeAs('public/images/', $imageName); // Save image to storage
-            $category->image = $imageName; // Save the filename to the database
+            $file = $req->file('category_image');
+            $fileName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension() ?: 'png';
+            $picture = rand() . time() . '.' . $extension;
+            $destinationPath = public_path("storage/images/");
+            $req->file('category_image')->move($destinationPath, $picture);
+            $image = $picture;
+            $category->image = $image;
+        } else {
+            $image = '';
         }
         $category->save();
         return redirect('category')->with('success', 'Category updated successfully.');
@@ -84,5 +99,5 @@ class CategoryController extends Controller
         return view('shop', compact('data'));
     }
 
-    
+
 }

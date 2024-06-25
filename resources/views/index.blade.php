@@ -149,8 +149,13 @@
                 @foreach ($product as $item)
                     <div class="col-lg-3 col-md-4 col-sm-6 mix women">
                         <div class="product__item" style='cursor: pointer'>
+                            @php
+                                $image = explode(',', $item->image);
+                                $images = $image[0];
+                                // print_r($images);
+                            @endphp
                             <div class="product__item__pic set-bg" height='200' width='300'
-                                data-setbg="{{ asset('storage/images/product/' . $item->image) }}">
+                                data-setbg="{{ asset('storage/images/product/' . $images) }}">
 
                                 @php
                                     if (session('email')) {

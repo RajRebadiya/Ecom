@@ -317,9 +317,13 @@
 
                         @foreach ($product as $item)
                             <div class="col-lg-4 col-md-6">
+                                @php
+                                    $images = explode(',', $item->image);
+                                    // print_r($images);
+                                @endphp
                                 <div class="product__item" style='cursor: pointer'>
                                     <div class="product__item__pic set-bg"
-                                        data-setbg="{{ asset('storage/images/product/' . $item->image) }}">
+                                        data-setbg="{{ asset('storage/images/product/' . $images[0]) }}">
                                         {{-- <div class="label new">New</div> --}}
                                         <ul class="product__hover">
                                             <li><a href="{{ asset('storage/images/product/' . $item->image) }}"

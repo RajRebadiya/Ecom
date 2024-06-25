@@ -61,33 +61,52 @@ class ProductController extends Controller
             'description' => 'required|string',
             'color' => 'required|string',
             'size' => 'required|string',
-            'product_image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'product_image' => 'required|array',
+            'product_image.*' => 'required|image|mimes:jpeg,png,jpg,gif', // Maximum file size: 2MB
             'price' => 'required|numeric',
             'qty' => 'required|integer',
             'sell_price' => 'required|numeric',
         ]);
 
         // Handle product image upload
+        $productImages = [];
         if ($req->hasFile('product_image')) {
-            $image = $req->file('product_image');
-            $imageName = $image->getClientOriginalName();
-            $image->storeAs('public/images/product', $imageName); // Save image to storage
-        } else {
-            return redirect('product')->with('error', 'Product image is required.');
-        }
+            $productImages = [];
+            foreach ($req->file('product_image') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName(); // Generate unique image name
+                $destinationPath = public_path('storage/images/product/');
+                $image->move($destinationPath, $imageName); // Save image to storage
 
-        // Save product data to database
-        $product = new Product();
+                $productImages[] = $imageName; // Store image name in the array
+            }
+        } else {
+            return redirect('product')->with('error', 'Product images are required.');
+        }
+        // dd($productImages);
+        $productImage = implode(',', $productImages);
+
+        // Create product record
+        $product = new Product;
         $product->name = $req->product_name;
         $product->c_id = $req->c_id;
         $product->description = $req->description;
         $product->color = $req->color;
         $product->size = $req->size;
-        $product->image = $imageName;
         $product->price = $req->price;
         $product->qty = $req->qty;
         $product->sell_price = $req->sell_price;
+        $product->image = $productImage;
+
         $product->save();
+
+        // Associate images with the product
+        // foreach ($productImages as $imageName) {
+        //     DB::table('products')->insert([
+        //         'id' => $product->id,
+        //         'image' => $imageName,
+        //         'c_id' => $req->c_id,
+        //     ]);
+        // }
 
         return redirect('product')->with('success', 'Product added successfully.');
     }
@@ -114,26 +133,14 @@ class ProductController extends Controller
             'description' => 'required|string',
             'color' => 'required|string',
             'size' => 'required|string',
-
+            'product_image' => 'required|array',
+            'product_image.*' => 'required|image|mimes:jpeg,png,jpg,gif',
             'price' => 'required|numeric',
             'qty' => 'required|integer',
             'sell_price' => 'required|numeric',
         ]);
 
-        // Handle product image upload
-        if ($req->hasFile('product_image')) {
-            $req->validate([
-                'product_image' => 'required|image|mimes:jpeg,png,jpg,gif'
-            ]);
-            $image = $req->file('product_image');
-            $imageName = $image->getClientOriginalName();
-            $image->storeAs('public/images/product', $imageName); // Save image to storage
-        } else {
-            $product = Product::find($req->id);
-            // dd($product);
-            $imageName = $product->image;
-            // return redirect('product')->with('error', 'Product image is required.');
-        }
+        // ...
 
         // Save product data to database
         $product = Product::find($req->id);
@@ -142,15 +149,30 @@ class ProductController extends Controller
         $product->description = $req->description;
         $product->color = $req->color;
         $product->size = $req->size;
-        $product->image = $imageName;
         $product->price = $req->price;
         $product->qty = $req->qty;
         $product->sell_price = $req->sell_price;
         $product->save();
 
+        // Delete existing images
+        $product->update(['image' => '']);
+
+        // Upload and save new images
+        if ($req->hasFile('product_image')) {
+            $images = [];
+            foreach ($req->file('product_image') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $destinationPath = public_path('storage/images/product/');
+                $image->move($destinationPath, $imageName);
+                $images[] = $imageName;
+            }
+
+            $product->update(['image' => implode(',', $images)]);
+        }
 
         return redirect('product')->with('success', 'Product updated successfully.');
     }
+
 
     public function show_product()
     {
