@@ -32,4 +32,17 @@ Route::controller(ApiController::class)->group(function () {
     Route::post('cart', 'cart');
     Route::post('single-delete-cart', 'SingleDeleteCart');
     Route::post('remove-all-cart', 'RemoveAllCart');
+    Route::post('product-detail', 'ProductDetail');
+    Route::post('search-data', 'SearchData');
+    Route::post('sort-filter', 'SortFilter');
+    Route::post('edit-profile', 'EditProfile');
+    Route::post('order-history', 'OrderHistory');
+    Route::post('single-order-history', 'SingleOrderHistory');
+    Route::get('coupon', 'Coupon');
+    Route::post('review', 'Review');
+    Route::post('save-address', 'SaveAddress');
+    Route::post('add-review', 'AddReview');
+    Route::get('save-address-list', 'SaveAddressList');
+    Route::post('checkout', 'Checkout');
+    Route::post('checkout-payment', 'CheckoutPayment');
 });

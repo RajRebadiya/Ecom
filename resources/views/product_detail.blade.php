@@ -215,6 +215,11 @@
                             ">Give
                                     Review</button>
                                 <!-- Modal -->
+                                @php
+                                    $user = DB::table('users')->where('email', session('email'))->first();
+                                    $user_id = $user->id;
+                                @endphp
+
                                 <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -235,6 +240,8 @@
                                                             id="recipient-name">
                                                         <input type="hidden" name="product_id"
                                                             value="{{ $datas->id }}">
+                                                        <input type="hidden" id="user_id" name="user_id"
+                                                            value="{{ $user_id }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">Reviews:</label>
@@ -308,11 +315,13 @@
             var username = $('#username').val();
             var review = $('#review').val();
 
+
             // Perform AJAX request to save the review in the database
             $.ajax({
                 url: '/save-review',
                 method: 'POST',
                 data: {
+
                     username: username,
                     review: review
                 },

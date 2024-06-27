@@ -54,7 +54,7 @@ class AddtocartController extends Controller
         $cart = DB::table('addtocart')
             ->join('products', 'addtocart.product_id', '=', 'products.id')
             ->where('addtocart.user_id', $user->id)
-            ->select('addtocart.*', 'products.*',) // Select columns from both tables
+            ->select('addtocart.*', 'products.*', ) // Select columns from both tables
             ->get();
         // dd($cart);
         // store cart value in session

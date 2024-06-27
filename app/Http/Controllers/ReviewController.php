@@ -20,6 +20,7 @@ class ReviewController extends Controller
         $review->user_name = $request->user_name;
         $review->detail = $request->detail;
         $review->p_id = $request->product_id;
+        $review->user_id = $request->user_id;
         $review->save();
         // dd($review);
         return redirect("product-detail/{$request->product_id}")->with("success", "Review Added Successfully");

@@ -41,6 +41,7 @@ class OrderController extends Controller
 
         // Create order items
         foreach ($cart as $item) {
+            // dd($item);
             $orderItem = new orderitem();
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $item->product_id;

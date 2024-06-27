@@ -18,6 +18,7 @@ class UserOrderController extends Controller
             return redirect('login')->with('error', 'Please login first');
         }
         $cart = session()->get('cart', []);
+        // dd($cart);
 
         if (!$cart || empty($cart)) {
             return redirect()->back()->with('error', 'Your cart is empty.');
