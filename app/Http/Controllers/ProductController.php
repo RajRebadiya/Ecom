@@ -333,7 +333,14 @@ class ProductController extends Controller
     public function latest_product(Request $request)
     {
         $data = product::where('c_id', $request->id)->orderBy('id', 'desc')->get();
-        return response()->json($data);
+        $decoded_data = json_decode($data, true);
+
+        foreach ($decoded_data as &$item) {
+            $item['image'] = explode(',', $item['image']);
+        }
+
+        // echo json_encode($decoded_data);
+        return response()->json($decoded_data);
     }
 
     public function getAllProducts()

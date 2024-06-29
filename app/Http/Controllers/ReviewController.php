@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\reviews;
+use Illuminate\Support\Facades\Http;
 
 class ReviewController extends Controller
 {
@@ -24,5 +25,10 @@ class ReviewController extends Controller
         $review->save();
         // dd($review);
         return redirect("product-detail/{$request->product_id}")->with("success", "Review Added Successfully");
+    }
+
+    public function test_api()
+    {
+        return Http::get('http://127.0.0.1:8000/api/new-arrival');
     }
 }

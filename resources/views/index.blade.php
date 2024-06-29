@@ -134,7 +134,7 @@
                 </div>
                 <div class="col-lg-8 col-md-8">
                     <ul class="filter__controls">
-                        <li class="active" data-filter="*">All</li>
+                        <li class="active" data-filter="*" onclick="latestProducts('*')">All</li>
 
                         @foreach ($category as $item)
                             <li class="" onclick='latestProducts({{ $item->id }})'
@@ -175,7 +175,7 @@
 
                                 @endphp
                                 <ul class="product__hover">
-                                    <li><a href="{{ asset('storage/images/product/' . $item->image) }}"
+                                    <li><a href="{{ asset('storage/images/product/' . $images) }}"
                                             class="image-popup img"><span class="arrow_expand"></span></a></li>
                                     <li>
                                         <form method="post" action="{{ url('add-to-wishlist') }}">
@@ -302,6 +302,7 @@
             // alert(id);
 
 
+
             $.ajax({
                 url: '{{ url('latest-product') }}',
                 method: 'POST',
@@ -326,59 +327,67 @@
             });
         }
 
+
+
         function renderProducts(products) {
             $('#product').empty();
 
             products.forEach(product => {
+                const images = product.image;
+                const imageList = images.map(image => `
+            <li>
+                <a href="storage/images/product/${image}" class="image-popup img">
+                    <span class="arrow_expand"></span>
+                </a>
+            </li>
+        `).join('');
+
                 const productHtml = `
             <div class="col-lg-3 col-md-4 col-sm-6 mix women">
                 <div class="product__item" style="cursor: pointer">
-                    <img class="product__item__pic set-bg" height="200" width="300" src="${`storage/images/product/${product.image}`}" />
-                        <ul class="product__hover">
-                            <li>
-                                <a href="${`storage/images/product/${product.image}`}" class="image-popup img">
+                    <img class="product__item__pic set-bg" height="200" width="300" src="storage/images/product/${images[0]}" />
+                    <ul class="product__hover">
+                       <li>
+                                <a href="${`storage/images/product/${product.image[0]}`}" class="image-popup img">
                                     <span class="arrow_expand"></span>
                                 </a>
                             </li>
-                            <li>
-                                <form method="post" action="${`{{ url('add-to-wishlist') }}`}">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="${product.id}">
-                                    <input type="hidden" name="user_id" value="${`{{ session('email') }}`}">
-                                    <a href="">
-                                        <button type="submit" class="${`{{ $wish_count > 0 ? 'red_btn' : 'normal_btn' }}`}">
-                                            <span class="icon_heart_alt"></span>
-                                        </button>
-                                    </a>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="${`{{ url('add-to-cart') }}`}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="${product.id}">
-                                    <a href="">
-                                        <button type="submit" class="normal_btn">
-                                            <span class="icon_bag_alt"></span>
-                                        </button>
-                                    </a>
-                                </form>
-                            </li>
-                        </ul>
+                        <li>
+                            <form method="post" action="{{ url('add-to-wishlist') }}">
+                                @csrf
+                                <input type="hidden" name="product_id" value="${product.id}">
+                                <input type="hidden" name="user_id" value="{{ session('email') }}">
+                                <a href="">
+                                    <button type="submit" class="{{ $wish_count > 0 ? 'red_btn' : 'normal_btn' }}">
+                                        <span class="icon_heart_alt"></span>
+                                    </button>
+                                </a>
+                            </form>
+                        </li>
+                        <li>
+                            <form action="{{ url('add-to-cart') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="product_id" value="${product.id}">
+                                <a href="">
+                                    <button type="submit" class="normal_btn">
+                                        <span class="icon_bag_alt"></span>
+                                    </button>
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <div class="product__item__text">
+                    <h6 id="product_name"><a href="#">${product.name}</a></h6>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
                     </div>
-                    
-                    <div class="product__item__text">
-                        <h6 id="product_name"><a href="#">${product.name}</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ ${product.price}</div>
-                         <div class="product__price"><input type="hidden" value="${product.id}"></div>
-
-                    </div>
+                    <div class="product__price">$ ${product.price}</div>
+                    <div class="product__price"><input type="hidden" value="${product.id}"></div>
                 </div>
             </div>
         `;

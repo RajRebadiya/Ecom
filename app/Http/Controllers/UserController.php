@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\user_data;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendOtp;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -95,7 +101,74 @@ class UserController extends Controller
         $user->state = $req->input('state');
         $user->city = $req->input('city');
         $user->mobile = $req->input('mobile');
+        // $user->email = $req->input('email');
         $user->save();
         return redirect('user-profile')->with(['success' => 'Profile updated successfully.']);
+    }
+
+    public function forget_password(Request $req)
+    {
+        // dd($req->all());
+        $req->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = user_data::where('email', $req->email)->first();
+        if (!$user) {
+            return response()->json([
+                'code' => 400,
+                'status' => 0,
+                'message' => 'User not found'
+            ]);
+        }
+        $otp = random_int(1000, 9999);
+        $num = 123;
+        Cache::put('otp_' . $num, $otp, now()->addMinutes(5));
+        Cache::put('email_' . $num, $user->email, now()->addMinutes(120));
+
+        $email_send = Mail::to($req->email)->send(new SendOtp($otp, $user));
+        if ($email_send) {
+            return view('verify_password')->with(['success', 'OTP send successfully', 'otp' => $otp]);
+        }
+
+    }
+
+    public function verify_otp(Request $req)
+    {
+        // dd($req->all());
+
+        $otp = $req->input('otp');
+        //convert otp into int
+        $otp = (int) $otp;
+        // dd($otp);
+        $num = 123;
+        $my_otp = Cache::get('otp_' . $num);
+        // dd($my_otp, $otp);
+        if ($my_otp == $otp) {
+            // dd('jbjd');
+            return redirect('change-password')->with(['success' => 'OTP verified successfully.']);
+        } else {
+            return redirect('verify-password')->with(['error' => 'OTP not verified.']);
+        }
+    }
+
+    public function change_password()
+    {
+        return view('set_password');
+    }
+    public function verify_password()
+    {
+        return view('verify_password', ['error' => 'Otp is not verified.']);
+    }
+    public function set_password(Request $request)
+    {
+        // dd($request->all());
+        $user = user_data::where('email', session('email'))->first();
+        if (!$user) {
+            return redirect('login')->with('error', 'Please login first');
+        }
+        $user->password = Hash::make($request->input('password'));
+        $user->update();
+        return redirect('user-profile')->with('success', 'Password Updated Successfully.');
     }
 }

@@ -52,6 +52,11 @@ Route::controller(UserController::class)->group(function () {
     Route::get('logout', 'logout');
     Route::get('user-profile', 'user_profile');
     Route::post('update-profile', 'update_profile');
+    Route::post('forget-password', 'forget_password');
+    Route::post('verify-otp', 'verify_otp');
+    Route::get('change-password', 'change_password');
+    Route::get('verify-password', 'verify_password');
+    Route::post('set-password', 'set_password');
     // Route::get('/', 'user_data');
 });
 
@@ -128,6 +133,7 @@ Route::controller(OrderHistoryController::class)->group(function () {
 
 Route::controller(ReviewController::class)->group(function () {
     Route::post('review', 'add_review');
+    Route::get('test-api', 'test_api');
 });
 
 Route::get('send-email', [SendEmailController::class, 'send']);

@@ -215,9 +215,15 @@
                             ">Give
                                     Review</button>
                                 <!-- Modal -->
+
                                 @php
-                                    $user = DB::table('users')->where('email', session('email'))->first();
-                                    $user_id = $user->id;
+                                    if (session()->has('email')) {
+                                        $user = DB::table('users')->where('email', session('email'))->first();
+                                        $user_id = $user->id;
+                                    } else {
+                                        $user_id = 6;
+                                    }
+
                                 @endphp
 
                                 <div class="modal" id="exampleModal" tabindex="-1" role="dialog">

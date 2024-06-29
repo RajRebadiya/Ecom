@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\user_data;
 use App\Models\user_order;
+// use Hash;
+use Illuminate\Support\Facades\Hash;
 
 class UserOrderController extends Controller
 {
@@ -46,4 +48,5 @@ class UserOrderController extends Controller
 
         return redirect()->route('order_success')->with('success', 'Order placed successfully.');
     }
+
 }
