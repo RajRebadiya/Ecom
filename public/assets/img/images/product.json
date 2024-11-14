@@ -1,0 +1,123 @@
+{
+    "status_code": 200,
+    "message": "Products successfully loaded",
+    "data": [
+        {
+            "id": 28,
+            "name": "SISHA_39458",
+            "category_name": "SISHA",
+            "image": "39458 SISHA.jpg",
+            "category_id": 7,
+            "created_at": "2024-11-14 08:44:30",
+            "updated_at": "2024-11-14 08:44:30"
+        },
+        {
+            "id": 12,
+            "name": "MYRA_39444",
+            "category_name": "MYRA",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/MYRA%2039444.jpg",
+            "category_id": 9,
+            "created_at": "2024-11-13 11:28:25",
+            "updated_at": "2024-11-14 10:25:06"
+        },
+        {
+            "id": 11,
+            "name": "SISHA_39450",
+            "category_name": "SISHA",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/39450%20SISHA.jpg",
+            "category_id": 7,
+            "created_at": "2024-11-13 11:28:02",
+            "updated_at": "2024-11-14 10:22:40"
+        },
+        {
+            "id": 10,
+            "name": "SISHA_39456",
+            "category_name": "SISHA",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/39456%20SISHA.jpg",
+            "category_id": 7,
+            "created_at": "2024-11-13 11:27:45",
+            "updated_at": "2024-11-14 10:23:19"
+        },
+        {
+            "id": 9,
+            "name": "MYRA_39445",
+            "category_name": "MYRA",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/39445%20MYRA.jpg",
+            "category_id": 9,
+            "created_at": "2024-11-13 11:27:25",
+            "updated_at": "2024-11-14 10:22:20"
+        },
+        {
+            "id": 8,
+            "name": "KOKILA_39462",
+            "category_name": "KOKILA",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/39462%20KOKILA.jpg",
+            "category_id": 8,
+            "created_at": "2024-11-13 11:27:07",
+            "updated_at": "2024-11-14 10:24:21"
+        },
+        {
+            "id": 7,
+            "name": "KOKILA_39461",
+            "category_name": "KOKILA",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/39461%20KOKILA.jpg",
+            "category_id": 8,
+            "created_at": "2024-11-13 11:26:53",
+            "updated_at": "2024-11-14 10:23:57"
+        },
+        {
+            "id": 6,
+            "name": "MYRA_39243",
+            "category_name": "MYRA",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/39243%20MYRA.jpg",
+            "category_id": 9,
+            "created_at": "2024-11-13 11:26:38",
+            "updated_at": "2024-11-14 10:21:34"
+        },
+        {
+            "id": 5,
+            "name": "YAMINI_39359",
+            "category_name": "YAMINI",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/39359%20YAMINI.jpg",
+            "category_id": 10,
+            "created_at": "2024-11-13 11:26:23",
+            "updated_at": "2024-11-14 10:22:00"
+        },
+        {
+            "id": 4,
+            "name": "YAMINI_38937",
+            "category_name": "YAMINI",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/38937%20YAMINI.jpg",
+            "category_id": 10,
+            "created_at": "2024-11-13 11:26:09",
+            "updated_at": "2024-11-14 10:21:13"
+        },
+        {
+            "id": 3,
+            "name": "SISHA_39457",
+            "category_name": "SISHA",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/39457%20SISHA.jpg",
+            "category_id": 7,
+            "created_at": "2024-11-13 11:25:53",
+            "updated_at": "2024-11-14 10:23:38"
+        },
+        {
+            "id": 2,
+            "name": "SISHA_39452",
+            "category_name": "SISHA",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/39452%20SISHA.jpg",
+            "category_id": 7,
+            "created_at": "2024-11-13 11:25:39",
+            "updated_at": "2024-11-14 10:23:00"
+        },
+        {
+            "id": 1,
+            "name": "NEELAM_33580",
+            "category_name": "NEELAM",
+            "image": "https://raw.githubusercontent.com/RajRebadiya/Ecom/refs/heads/master/public/assets/img/images/33580_NEELAM.jpg",
+            "category_id": 6,
+            "created_at": "2024-11-13 11:25:17",
+            "updated_at": "2024-11-14 10:20:46"
+        }
+    ]
+}

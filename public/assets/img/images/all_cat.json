@@ -1,0 +1,54 @@
+{
+    "status_code": 200,
+    "message": "Category successfully loaded",
+    "data": [
+        {
+            "id": 20,
+            "name": "Apexa"
+        },
+        {
+            "id": 19,
+            "name": "ddeemmoo"
+        },
+        {
+            "id": 18,
+            "name": "Demo"
+        },
+        {
+            "id": 17,
+            "name": "Demo"
+        },
+        {
+            "id": 16,
+            "name": "Ram"
+        },
+        {
+            "id": 15,
+            "name": "Demo"
+        },
+        {
+            "id": 14,
+            "name": "Lina"
+        },
+        {
+            "id": 10,
+            "name": "YAMINI"
+        },
+        {
+            "id": 9,
+            "name": "MYRA"
+        },
+        {
+            "id": 8,
+            "name": "KOKILA"
+        },
+        {
+            "id": 7,
+            "name": "SISHA"
+        },
+        {
+            "id": 6,
+            "name": "NEELAM"
+        }
+    ]
+}

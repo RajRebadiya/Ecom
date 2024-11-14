@@ -1,0 +1,78 @@
+{
+    "status_code": 200,
+    "message": "categories successfully loaded",
+    "data": [
+        {
+            "id": 20,
+            "name": "Apexa",
+            "created_at": "2024-11-14 07:28:47",
+            "updated_at": "2024-11-14 07:28:47"
+        },
+        {
+            "id": 19,
+            "name": "ddeemmoo",
+            "created_at": "2024-11-14 07:24:19",
+            "updated_at": "2024-11-14 07:24:19"
+        },
+        {
+            "id": 18,
+            "name": "Demo",
+            "created_at": "2024-11-14 07:23:43",
+            "updated_at": "2024-11-14 07:23:43"
+        },
+        {
+            "id": 17,
+            "name": "Demo",
+            "created_at": "2024-11-14 07:23:37",
+            "updated_at": "2024-11-14 07:23:37"
+        },
+        {
+            "id": 16,
+            "name": "Ram",
+            "created_at": "2024-11-14 07:23:07",
+            "updated_at": "2024-11-14 07:23:07"
+        },
+        {
+            "id": 15,
+            "name": "Demo",
+            "created_at": "2024-11-14 06:16:26",
+            "updated_at": "2024-11-14 06:16:26"
+        },
+        {
+            "id": 14,
+            "name": "Lina",
+            "created_at": "2024-11-14 06:16:13",
+            "updated_at": "2024-11-14 06:16:13"
+        },
+        {
+            "id": 10,
+            "name": "YAMINI",
+            "created_at": "2024-11-13 16:50:42",
+            "updated_at": "2024-11-13 16:50:42"
+        },
+        {
+            "id": 9,
+            "name": "MYRA",
+            "created_at": "2024-11-13 16:50:42",
+            "updated_at": "2024-11-13 16:50:42"
+        },
+        {
+            "id": 8,
+            "name": "KOKILA",
+            "created_at": "2024-11-13 16:50:42",
+            "updated_at": "2024-11-13 16:50:42"
+        },
+        {
+            "id": 7,
+            "name": "SISHA",
+            "created_at": "2024-11-13 16:50:42",
+            "updated_at": "2024-11-13 16:50:42"
+        },
+        {
+            "id": 6,
+            "name": "NEELAM",
+            "created_at": "2024-11-13 16:50:42",
+            "updated_at": "2024-11-13 16:50:42"
+        }
+    ]
+}
